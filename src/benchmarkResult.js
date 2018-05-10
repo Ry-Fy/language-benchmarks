@@ -1,7 +1,11 @@
 class BenchmarkResult {
-	constructor() {
-		
+	constructor(memoryMax, memoryAvg, elapsedSeconds) {
+		this.memoryMax = memoryMax;
+		this.memoryAvg = memoryAvg;
+		this.elapsedSeconds = elapsedSeconds;
+		this.language = "";
+		this.benchmark = "";
 	}
 }
 
-exports.default = BenchmarkResult;
+module.exports = BenchmarkResult;

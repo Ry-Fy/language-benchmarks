@@ -128,7 +128,7 @@ class SolarSystem
 	end
 end
 
-def main()
+def main() : Nil
 	iterations = 50_000_000
 	solarSystem = SolarSystem.new()
 	puts("Energy before:\t#{solarSystem.energy.round(9)}")
