@@ -62,8 +62,7 @@ void offset_sol_momentum(struct body* bodies) {
 	double py = 0.0;
 	double pz = 0.0;
 
-	int i;
-	for (i = 0; i < BODY_COUNT; i++) {
+	for (int i = 0; i < BODY_COUNT; i++) {
 		px += bodies[i].vx * bodies[i].mass;
 		py += bodies[i].vy * bodies[i].mass;
 		pz += bodies[i].vz * bodies[i].mass;
@@ -77,12 +76,10 @@ void offset_sol_momentum(struct body* bodies) {
 void bodies_advance(struct body* bodies, double dt) {
 	double dx, dy, dz, dist, mag, bim, bjm;
 
-	int i;
-	for (i = 0; i < BODY_COUNT; i++) {
+	for (int i = 0; i < BODY_COUNT; i++) {
 		struct body* bodyi = &(bodies[i]);
 		
-		int j;
-		for (j = i + 1; j < BODY_COUNT; j++) {
+		for (int j = i + 1; j < BODY_COUNT; j++) {
 			struct body* bodyj = &(bodies[j]);
 
 			dx = bodyi->x - bodyj->x;
@@ -114,13 +111,11 @@ double bodies_energy(struct body* bodies) {
 	double dx, dy, dz, dist;
 	double e = 0.0;
 
-	int i;
-	for (i = 0; i < BODY_COUNT; i++) {
+	for (int i = 0; i < BODY_COUNT; i++) {
 		struct body* bodyi = &(bodies[i]);
 		e += 0.5 * bodyi->mass * (bodyi->vx * bodyi->vx + bodyi->vy * bodyi->vy + bodyi->vz * bodyi->vz);
 
-		int j;
-		for (j = i + 1; j < BODY_COUNT; j++) {
+		for (int j = i + 1; j < BODY_COUNT; j++) {
 			struct body* bodyj = &(bodies[j]);
 
 			dx = bodyi->x - bodyj->x;
@@ -140,8 +135,7 @@ int main(int argc, char** argv) {
 	offset_sol_momentum(bodies);
 	printf("Energy before:\t%.9f\n", bodies_energy(bodies));
 
-	int i;
-	for (i = 0; i < iterations; i++) {
+	for (int i = 0; i < iterations; i++) {
 		bodies_advance(bodies, 0.01);
 	}
 

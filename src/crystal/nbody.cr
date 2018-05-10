@@ -118,7 +118,6 @@ class SolarSystem
 		@bodies.each_with_index do |bodyi, i|
 			e += 0.5 * bodyi.mass * (bodyi.vx * bodyi.vx + bodyi.vy * bodyi.vy + bodyi.vz * bodyi.vz)
 
-			#@bodies[i + 1...@bodies.size].each do |bodyj|
 			j = i + 1
 			while j < @bodies.size
 				bodyj = @bodies[j]
@@ -131,6 +130,7 @@ class SolarSystem
 				j += 1
 			end
 		end
+
 		return e
 	end
 end

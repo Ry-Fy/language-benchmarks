@@ -9,7 +9,7 @@ const benchmarks = [
 //
 
 const main = async () => {
-	const runsPer = 5;
+	const runsPer = 2;
 	const results = [];
 	for (let benchmark of benchmarks) {
 		for (let i = 0; i < runsPer; i++) {
