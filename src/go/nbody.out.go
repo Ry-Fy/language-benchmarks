@@ -27,7 +27,7 @@ func SolarSystemNew() SolarSystem {
 		bodies: []*Body {
 			// Sol
 			&Body {
-				x: 0.0, y: 0.0, z: 0.0, vx: 0.0, vy: 0.0, vz: 0.0, mass: 0.0,
+				x: 0.0, y: 0.0, z: 0.0, vx: 0.0, vy: 0.0, vz: 0.0, mass: SOLAR_MASS,
 			},
 			// Jupiter
 			&Body {
