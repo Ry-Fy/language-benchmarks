@@ -83,7 +83,9 @@ class SolarSystem
 		dx, dy, dz, dist, mag, bim, bjm = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 
 		@bodies.each_with_index do |bodyi, i|
-			@bodies[i + 1...@bodies.size].each do |bodyj|
+			j = i + 1
+			while j < @bodies.size
+				bodyj = @bodies[j]
 				dx = bodyi.x - bodyj.x
 				dy = bodyi.y - bodyj.y
 				dz = bodyi.z - bodyj.z
@@ -101,6 +103,7 @@ class SolarSystem
 				bodyj.vx += dx * bim
 				bodyj.vy += dy * bim
 				bodyj.vz += dz * bim
+				j += 1
 			end
 
 			bodyi.x = bodyi.x + dt * bodyi.vx
@@ -115,13 +118,17 @@ class SolarSystem
 		@bodies.each_with_index do |bodyi, i|
 			e += 0.5 * bodyi.mass * (bodyi.vx * bodyi.vx + bodyi.vy * bodyi.vy + bodyi.vz * bodyi.vz)
 
-			@bodies[i + 1...@bodies.size].each do |bodyj|
+			#@bodies[i + 1...@bodies.size].each do |bodyj|
+			j = i + 1
+			while j < @bodies.size
+				bodyj = @bodies[j]
 				dx = bodyi.x - bodyj.x
 				dy = bodyi.y - bodyj.y
 				dz = bodyi.z - bodyj.z
 
 				dist = Math.sqrt(dx * dx + dy * dy + dz * dz)
 				e -= (bodyi.mass * bodyj.mass) / dist
+				j += 1
 			end
 		end
 		return e

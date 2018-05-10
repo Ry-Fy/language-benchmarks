@@ -32,7 +32,7 @@ class BenchmarkStatCollector {
 
 	result() {
 		if (this._active) {
-			return null;
+			this._stop()
 		}
 
 		return new BenchmarkResult(this._memoryMax, this._memoryAvg, this._elapsedSeconds())
