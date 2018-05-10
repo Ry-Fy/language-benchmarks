@@ -79,6 +79,7 @@ class SolarSystem {
 
 	advance(dt) {
 		let dx, dy, dz, dist, mag, bim, bjm;
+		
 		for (let i = 0; i < this.bodies.length; i++) {
 			const bodyi = this.bodies[i];
 			

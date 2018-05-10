@@ -23,11 +23,13 @@ class Benchmark {
 
 	compile() {
 		return new Promise((resolve, reject) => {
-			if (!this.compileCmd || !this.compileArgs) {
+			if (!this.compileCmd && !this.compileArgs) {
 				resolve();
 			} else {
-				const compileProcess = spawn(this.compileCmd, this.compileArgs);
-				benchmarkProcess.on('exit', (code) => {
+				const compileProcess = this.compileArgs
+					? spawn(this.compileCmd, this.compileArgs)
+					: spawn(this.compileCmd);
+				compileProcess.on('exit', (code) => {
 					resolve();
 				});
 			}
@@ -39,7 +41,9 @@ class Benchmark {
 		return new Promise((resolve, reject) => {
 			console.log(`Beginning "${this.benchmark}" benchmark for ${this.language}...`);
 			this.startTime = performance.now();
-			const benchmarkProcess = spawn(this.runCmd, this.runArgs);
+			const benchmarkProcess = this.runArgs
+				? spawn(this.runCmd, this.runArgs)
+				: spawn(this.runCmd);
 			this.startStatTimer(benchmarkProcess.pid, 200);
 	
 			benchmarkProcess.on('exit', (code) => {
@@ -58,11 +62,11 @@ class Benchmark {
 	startStatTimer(pid, resolution) {
 		this.statTimer = setInterval(async  () => {
 			const stats = await pidusage(pid);
-			const statMemoryInKb = stats.memory / 1000;
-			if (statMemoryInKb > this.memoryMax) {
-				this.memoryMax = statMemoryInKb;
+			const statMemoryInMb = stats.memory / 1000000;
+			if (statMemoryInMb > this.memoryMax) {
+				this.memoryMax = statMemoryInMb;
 			}
-			this.memoryMeasurements.push(statMemoryInKb);
+			this.memoryMeasurements.push(statMemoryInMb);
 		}, resolution);
 	}
 
@@ -75,14 +79,16 @@ class Benchmark {
 		console.log(resultsHeader);
 		console.log(`Result       : ${this.result}`);
 		console.log(`Elapsed Time : ${this.elapsedTime.toFixed(2)} sec`);
-		console.log(`Memory (avg) : ${(this.memoryAvg).toFixed(2)} kB`);
-		console.log(`Memory (max) : ${(this.memoryMax).toFixed(2)} kB`);
+		console.log(`Memory (avg) : ${(this.memoryAvg).toFixed(2)} mB`);
+		console.log(`Memory (max) : ${(this.memoryMax).toFixed(2)} mB`);
 		console.log('='.repeat(resultsHeader.length));
 	}
 }
 
 const benchmarks = [
-	new Benchmark('NodeJS', 'nbody', null, null, 'node', ['./benchmarks/nbody/nodejs/nbody.js']),
+	new Benchmark('NodeJS', 'nbody', null, null, 'node', ['./src/nodejs/nbody.js']),
+	new Benchmark('Crystal', 'nbody', 'crystal', ['build', '--release', './src/crystal/nbody.cr', '-o', './src/crystal/nbody.out'], './src/crystal/nbody.out', null),
+
 ]
 
 const runBenchmarks = async () => {
@@ -92,4 +98,8 @@ const runBenchmarks = async () => {
 	}
 }
 
-runBenchmarks();
+try {
+	runBenchmarks();
+} catch (err) {
+	console.log(err);
+}
