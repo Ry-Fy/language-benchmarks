@@ -40,7 +40,7 @@ class BenchmarkStatCollector {
 
 	_elapsedSeconds() {
 		const msElapsed = this._endTime - this._startTime;
-		return (msElapsed / 1000).toFixed(2);
+		return (msElapsed / 1000).toFixed(3);
 	}
 
 	_startTimer() {
