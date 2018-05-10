@@ -1,0 +1,12 @@
+{
+  "name": "language-benchmarks",
+  "version": "0.0.1",
+  "description": "A node wrapper around language benchmarks",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "pidusage": "^2.0.6"
+  }
+}
