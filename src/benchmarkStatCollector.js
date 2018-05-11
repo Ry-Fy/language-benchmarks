@@ -53,12 +53,17 @@ class BenchmarkStatCollector {
 
 	_startStatCollector(pid) {
 		this.statCollector = setInterval(async () => {
-			const stats = await pidusage(this.pid);
-			const statMemoryMegabytes = stats.memory / 1000000;
-			if (statMemoryMegabytes > this._memoryMax) {
-				this._memoryMax = statMemoryMegabytes.toFixed(4);
+			try {
+				const stats = await pidusage(this.pid);
+				const statMemoryMegabytes = stats.memory / 1000000;
+				if (statMemoryMegabytes > this._memoryMax) {
+					this._memoryMax = statMemoryMegabytes.toFixed(4);
+				}
+				this._measurements.push(statMemoryMegabytes);
+			} catch(err) {
+				
 			}
-			this._measurements.push(statMemoryMegabytes);
+			
 		}, 200);
 	}
 

@@ -11,17 +11,14 @@ const (
 	DAYS_PER_YEAR float64 = 365.24
 )
 
-// Body is a thing
 type Body struct {
 	x, y, z, vx, vy, vz, mass float64
 }
 
-// SolarSystem is a thing
 type SolarSystem struct {
 	bodies []*Body
 }
 
-// SolarSystemNew is a thing
 func SolarSystemNew() SolarSystem {
 	system := SolarSystem {
 		bodies: []*Body {
@@ -90,7 +87,6 @@ func SolarSystemNew() SolarSystem {
 	return system
 }
 
-// Advance is a thing
 func (system *SolarSystem) Advance(dt float64) {
 	var dx, dy, dz, dist, mag, bim, bjm float64
 
@@ -122,7 +118,6 @@ func (system *SolarSystem) Advance(dt float64) {
 	}
 }
 
-// Energy is a thing
 func (system *SolarSystem) Energy() float64 {
 	var dx, dy, dz, dist, e float64
 	e = 0.0

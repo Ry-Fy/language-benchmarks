@@ -2,35 +2,17 @@ const { spawn } = require('child_process');
 const BenchmarkStatCollector = require('./benchmarkStatCollector');
 
 class Benchmark {
-	constructor(language, benchmark, compileCmd, compileArgs, runCmd, runArgs) {
-		this.language = language;
-		this.benchmark = benchmark;
-		this.compileCmd = compileCmd;
-		this.compileArgs = compileArgs;
-		this.runCmd = runCmd;
-		this.runArgs = runArgs;
+	constructor(config) {
+		this.language = config.language;
+		this.benchmark = config.benchmark;
+		this.compileCmd = config.compileCmd;
+		this.compileArgs = config.compileArgs;
+		this.runCmd = config.runCmd;
+		this.runArgs = config.runArgs;
 		this.statTimer = null;
 	}
 
-	compile() {
-		return new Promise((resolve, reject) => {
-			if (!this.compileCmd && !this.compileArgs) {
-				resolve();
-			} else {
-				const compileProcess = this.compileArgs
-					? spawn(this.compileCmd, this.compileArgs)
-					: spawn(this.compileCmd);
-
-				compileProcess.on('exit', (code) => {
-					resolve();
-				});
-			}
-		});
-	}
-
 	async run() {
-		await this.compile();
-
 		return new Promise((resolve, reject) => {
 			const process = this.runArgs != null
 				? spawn(this.runCmd, this.runArgs)
