@@ -1,7 +1,7 @@
 const Benchmark = require('./benchmark');
 
 const benchmarkConfigs = [
-	/* {
+	{
 		language: 'NodeJS',
 		benchmark: 'N-Body',
 		compileCmd: null,
@@ -40,7 +40,15 @@ const benchmarkConfigs = [
 		compileArgs: ['build', './src/csharp/nbody', '-c', 'release'],
 		runCmd: 'dotnet',
 		runArgs: ['./src/csharp/nbody/bin/release/netcoreapp2.0/nbody.dll'],
-	}, */
+	},
+	{
+		language: 'Python',
+		benchmark: 'N-Body',
+		compileCmd: null,
+		compileArgs: null,
+		runCmd: 'python3',
+		runArgs: ['./src/python/nbody.py'],
+	},
 	{
 		language: 'NodeJS',
 		benchmark: 'Prime Sum',
@@ -80,6 +88,14 @@ const benchmarkConfigs = [
 		compileArgs: ['build', './src/csharp/primesum', '-c', 'release'],
 		runCmd: 'dotnet',
 		runArgs: ['./src/csharp/primesum/bin/release/netcoreapp2.0/primesum.dll'],
+	},
+	{
+		language: 'Python',
+		benchmark: 'Prime Sum',
+		compileCmd: null,
+		compileArgs: null,
+		runCmd: 'python3',
+		runArgs: ['./src/python/primesum.py'],
 	},
 ]
 

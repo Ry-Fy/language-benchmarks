@@ -16,7 +16,6 @@ const isPrime = (n) => {
 		if (n % i === 0 || n % (i + 2) === 0) {
 			return false;
 		}
-
 		i += 6;
 	}
 
@@ -42,7 +41,7 @@ const sumPrimes = (n) => {
 const main = () => {
 	const primeCount = 2000000;
 	const result = sumPrimes(primeCount);
-	console.log(`Sum of first ${primeCount} primes: ${result}`);
+	console.log(`Sum of the first ${primeCount} primes: ${result}`);
 }
 
 main()

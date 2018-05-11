@@ -66,7 +66,9 @@ class SolarSystem {
 		let pz = 0.0;
 
 		for (let body of this.bodies) {
-			
+			px += body.vx * body.mass;
+			py += body.vy * body.mass;
+			pz += body.vz * body.mass;
 		}
 
 		let sol = this.bodies[0];
