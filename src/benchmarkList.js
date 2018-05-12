@@ -1,4 +1,4 @@
-const Benchmark = require('./benchmark');
+const BenchmarkRunner = require('./benchmarkRunner');
 
 const benchmarkConfigs = [
 	{
@@ -115,6 +115,6 @@ const benchmarkConfigs = [
 	},
 ]
 
-const benchmarkList = benchmarkConfigs.map(config => new Benchmark(config));
+const benchmarkList = benchmarkConfigs.map(config => new BenchmarkRunner(config));
 
 module.exports = benchmarkList;

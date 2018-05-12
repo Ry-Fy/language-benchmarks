@@ -1,4 +1,6 @@
 const os = require('os');
+const R = require('ramda');
+const BenchmarkResult = require('./benchmarkResult');
 
 class ResultLogger {
 	constructor() {
@@ -7,40 +9,40 @@ class ResultLogger {
 		this._borderChar = '|';
 	}
 
-	logResults(results) {
+	logResults(results, samples) {
 		console.log('');
 		this._printHeader('platform details');
-		this._printInfoLine(``)
-		this._printInfoLine(`OS:          ${os.type()} ${os.release()}`);
-		this._printInfoLine(`CPU:         ${os.cpus()[0].model}`);
-		this._printInfoLine(`CPU Cores:   ${os.cpus().length} Logical`);
-		this._printInfoLine(`Memory:      ${(os.totalmem() / Math.pow(1024, 3)).toFixed(2)} GB`);
-		this._printInfoLine(``)
-		this._getGroupedResults(results).forEach(resultSet => this._printResultSet(resultSet));
-		this._printHeader('');
-	}
+		this._printInfoLine('');
+		this._printInfoLine(` OS:           ${os.type()} ${os.release()}`);
+		this._printInfoLine(` CPU:          ${os.cpus()[0].model}`);
+		this._printInfoLine(` CPU Cores:    ${os.cpus().length} Logical`);
+		this._printInfoLine(` Memory:       ${(os.totalmem() / Math.pow(1024, 3)).toFixed(2)} GB`);
+		this._printInfoLine('');
+		this._printHeader('result details');
+		this._printInfoLine('');
+		this._printInfoLine(` Samples:      ${samples} / Benchmark`);
+		this._printInfoLine(` Group Method: Arithmetic Mean`);
+		this._printInfoLine('');
+		const benchmarkGroups = R.groupWith((x, y) => x.benchmark === y.benchmark, results);
+		const avgBenchmarks = R.map((group) => {
+			const languageGroups = R.groupWith((x, y) => x.language === y.language, group);
+			const avgGroups = R.map((x) => {
+				const avgMemMax = x.map(b => b.memoryMax).reduce((p, c) => p + c) / x.length;
+				const avgMemAvg = x.map(b => b.memoryAvg).reduce((p, c) => p + c) / x.length;
+				const avgTime = x.map(b => b.elapsedSeconds).reduce((p, c) => p + c) / x.length;
+				return new BenchmarkResult(
+					avgMemMax,
+					avgMemAvg,
+					avgTime,
+					x[0].language,
+					x[0].benchmark
+				)
+			}, languageGroups)
+			return avgGroups;
+		}, benchmarkGroups);
 
-	_getGroupedResults(results) {
-		const resultGroups = [];
-	
-		for (let result of results) {
-			if (resultGroups.length === 0) {
-				resultGroups.push([result]);
-				continue;
-			}
-	
-			const matchingGroup = resultGroups.filter(resultGroup => resultGroup[0].benchmark === result.benchmark);
-				
-			if (matchingGroup && matchingGroup.length > 0) {
-				matchingGroup[0].push(result);
-			} else {
-				const newResultGroup = [result];
-				resultGroups.push(newResultGroup);
-			}
-		}
-	
-		const sortedGroups = resultGroups.map(group => group.sort((a, b) => a.elapsedSeconds < b.elapsedSeconds ? -1 : 1));
-		return sortedGroups;
+		avgBenchmarks.forEach(resultSet => this._printResultSet(resultSet));
+		this._printHeader('');
 	}
 
 	_printResultSet(resultSet) {
@@ -84,9 +86,10 @@ class ResultLogger {
 			}
 		}
 
-		this._printInfoLine(`${langHead}     ${timeHead}     ${memMaxHead}     ${memAvgHead}`);
+		this._printInfoLine(` ${langHead}     ${timeHead}     ${memMaxHead}     ${memAvgHead}`);
 		fixedResults.forEach((result) => {
-			this._printInfoLine(this._padRight(result.language, maxLangLen)
+			this._printInfoLine(' '
+				+ this._padRight(result.language, maxLangLen)
 				+ `     ${this._padLeft(result.elapsedSeconds, maxTimeLen)}`
 				+ `     ${this._padLeft(result.memoryMax, maxMaxLen)}`
 				+ `     ${this._padLeft(result.memoryAvg, maxAvgLen)}`

@@ -1,10 +1,10 @@
 class BenchmarkResult {
-	constructor(memoryMax, memoryAvg, elapsedSeconds) {
+	constructor(memoryMax, memoryAvg, elapsedSeconds, language, benchmark) {
 		this.memoryMax = memoryMax;
 		this.memoryAvg = memoryAvg;
 		this.elapsedSeconds = elapsedSeconds;
-		this.language = "";
-		this.benchmark = "";
+		this.language = language || '';
+		this.benchmark = benchmark || '';
 	}
 }
 
