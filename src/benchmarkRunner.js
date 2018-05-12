@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 const BenchmarkStatCollector = require('./benchmarkStatCollector');
 
-class Benchmark {
+class BenchmarkRunner {
 	constructor(config) {
 		this.language = config.language;
 		this.benchmark = config.benchmark;
@@ -34,4 +34,4 @@ class Benchmark {
 	}
 }
 
-module.exports = Benchmark;
+module.exports = BenchmarkRunner;

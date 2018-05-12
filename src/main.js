@@ -1,9 +1,9 @@
 const { spawn } = require('child_process');
-const Benchmark = require('./benchmark');
+const BenchmarkRunner = require('./benchmarkRunner');
 const ResultLogger = require('./resultLogger');
 const benchmarkList = require('./benchmarkList');
 
-class BenchmarkRunner {
+class LanguageBenchmarks {
 	constructor(benchmarks) {
 		this.benchmarks = benchmarks;
 	}
@@ -66,7 +66,7 @@ const main = async () => {
 	// It takes WAY too long to run any Python benchmarks
 	const languagesToSkip = ['Python'];
 	const benchmarksToRun = benchmarkList.filter(benchmark => !languagesToSkip.includes(benchmark.language));
-	const runner = new BenchmarkRunner(benchmarksToRun);
+	const runner = new LanguageBenchmarks(benchmarksToRun);
 	await runner.start();
 	process.exit();
 }
