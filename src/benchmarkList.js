@@ -42,6 +42,14 @@ const benchmarkConfigs = [
 		runArgs: ['./src/csharp/nbody/bin/release/netcoreapp2.0/nbody.dll'],
 	},
 	{
+		language: 'Java',
+		benchmark: 'N-Body',
+		compileCmd: 'javac',
+		compileArgs: ['./src/java/nbody/nbody.java'],
+		runCmd: 'java',
+		runArgs: ['-cp', './src/java/nbody', 'NBody'],
+	},
+	{
 		language: 'Python',
 		benchmark: 'N-Body',
 		compileCmd: null,
@@ -88,6 +96,14 @@ const benchmarkConfigs = [
 		compileArgs: ['build', './src/csharp/primesum', '-c', 'release'],
 		runCmd: 'dotnet',
 		runArgs: ['./src/csharp/primesum/bin/release/netcoreapp2.0/primesum.dll'],
+	},
+	{
+		language: 'Java',
+		benchmark: 'Prime Sum',
+		compileCmd: 'javac',
+		compileArgs: ['./src/java/primesum/primesum.java'],
+		runCmd: 'java',
+		runArgs: ['-cp', './src/java/primesum', 'PrimeSum'],
 	},
 	{
 		language: 'Python',

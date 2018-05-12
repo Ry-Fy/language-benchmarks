@@ -26,7 +26,7 @@ class BenchmarkStatCollector {
 		this._stopStatCollector();
 		
 		if (this._measurements && this._measurements.length > 0) {
-			this._memoryAvg = (this._measurements.reduce((p, c) => p + c) / this._measurements.length).toFixed(4);
+			this._memoryAvg = (this._measurements.reduce((p, c) => p + c) / this._measurements.length);
 		}
 	}
 
@@ -40,7 +40,7 @@ class BenchmarkStatCollector {
 
 	_elapsedSeconds() {
 		const msElapsed = this._endTime - this._startTime;
-		return (msElapsed / 1000).toFixed(4);
+		return parseFloat(msElapsed / 1000);
 	}
 
 	_startTimer() {
@@ -57,7 +57,7 @@ class BenchmarkStatCollector {
 				const stats = await pidusage(this.pid);
 				const statMemoryMegabytes = stats.memory / 1000000;
 				if (statMemoryMegabytes > this._memoryMax) {
-					this._memoryMax = statMemoryMegabytes.toFixed(4);
+					this._memoryMax = statMemoryMegabytes;
 				}
 				this._measurements.push(statMemoryMegabytes);
 			} catch(err) {

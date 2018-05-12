@@ -4,7 +4,7 @@
   "description": "A node wrapper around language benchmarks",
   "main": "start.js",
   "scripts": {
-    "clean": "rm -rf ./*.out && rm -rf ./src/**/*.out && rm -rf ./src/csharp/**/bin ./src/csharp/**/obj",
+    "clean": "rm -rf ./*.out && rm -rf ./src/**/*.out && rm -rf ./src/csharp/**/bin ./src/csharp/**/obj ./src/java/**/*.class",
     "prestart": "npm run clean",
     "start": "node ./src/main.js"
   },

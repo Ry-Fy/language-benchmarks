@@ -28,6 +28,8 @@ class Benchmark {
 				result.benchmark = this.benchmark;
 				resolve(result);
 			});
+
+			process.on('error', err => reject(err));
 		});
 	}
 }

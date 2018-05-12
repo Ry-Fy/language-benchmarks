@@ -69,7 +69,7 @@ namespace nbody {
 				pz += body.vz * body.mass;
 			}
 
-			Body sol = this.bodies[0];
+			Body sol = bodies[0];
 			sol.vx = -px / SOLAR_MASS;
 			sol.vy = -py / SOLAR_MASS;
 			sol.vz = -pz / SOLAR_MASS;
@@ -78,11 +78,11 @@ namespace nbody {
 		public void Advance(double dt) {
 			double dx, dy, dz, dist, mag, bim, bjm;
 
-			for (int i = 0; i < this.bodies.Length; i++) {
-				Body bodyi = this.bodies[i];
+			for (int i = 0; i < bodies.Length; i++) {
+				Body bodyi = bodies[i];
 				
-				for (int j = i + 1; j < this.bodies.Length; j++) {
-					Body bodyj = this.bodies[j];
+				for (int j = i + 1; j < bodies.Length; j++) {
+					Body bodyj = bodies[j];
 					
 					dx = bodyi.x - bodyj.x;
 					dy = bodyi.y - bodyj.y;
@@ -113,12 +113,12 @@ namespace nbody {
 			double dx, dy, dz, dist;
 			double e = 0.0;
 
-			for (int i = 0; i < this.bodies.Length; i++) {
-				Body bodyi = this.bodies[i];
+			for (int i = 0; i < bodies.Length; i++) {
+				Body bodyi = bodies[i];
 				e += 0.5 * bodyi.mass * (bodyi.vx * bodyi.vx + bodyi.vy * bodyi.vy + bodyi.vz * bodyi.vz);
 
-				for (int j = i + 1; j < this.bodies.Length; j++) {
-					Body bodyj = this.bodies[j];
+				for (int j = i + 1; j < bodies.Length; j++) {
+					Body bodyj = bodies[j];
 
 					dx = bodyi.x - bodyj.x;
 					dy = bodyi.y - bodyj.y;
@@ -135,7 +135,7 @@ namespace nbody {
 
 	class Program {
 		static void Main(string[] args) {
-			const int iterations = 50000000;
+			int iterations = 50000000;
 			SolarSystem solarSystem = new SolarSystem();
 			Console.WriteLine($"Energy before:\t{0:f9}", solarSystem.Energy());
 
