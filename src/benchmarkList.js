@@ -1,7 +1,7 @@
 const BenchmarkRunner = require('./benchmarkRunner');
 
 const benchmarkConfigs = [
-	{
+	/* {
 		language: 'NodeJS',
 		benchmark: 'N-Body',
 		compileCmd: null,
@@ -112,7 +112,7 @@ const benchmarkConfigs = [
 		compileArgs: null,
 		runCmd: 'python3',
 		runArgs: ['./src/python/primesum.py'],
-	},
+	}, */
 	{
 		language: 'NodeJS',
 		benchmark: 'SLL Merge-Sort',
