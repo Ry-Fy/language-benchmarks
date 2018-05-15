@@ -130,6 +130,14 @@ const benchmarkConfigs = [
 		runArgs: null,
 	},
 	{
+		language: 'Go',
+		benchmark: 'SLL Merge-Sort',
+		compileCmd: 'go',
+		compileArgs: ['build', './src/go/sllmergesort.out.go'],
+		runCmd: './sllmergesort.out',
+		runArgs: null,
+	},
+	{
 		language: 'Java',
 		benchmark: 'SLL Merge-Sort',
 		compileCmd: 'javac',

@@ -80,7 +80,7 @@ end
 def main()
 	medium_iterations = 100
 	short_iterations = 99
-	node_count = 10_000
+	node_count = 5000
 	int_max = (2 ** 31) -1
 
 	long_list = LinkedList.new()

@@ -90,7 +90,7 @@ final class SllMergeSort {
 	public static void main(String[] args) {
 		int mediumIterations = 100;
 		int shortIterations = 99;
-		int nodeCount = 10000;
+		int nodeCount = 5000;
 		int intMax = (int) Math.pow(2, 31) - 1;
 
 		LinkedList longList = new LinkedList();

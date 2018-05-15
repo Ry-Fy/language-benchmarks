@@ -97,7 +97,7 @@ const getRandomInt = (max) => {
 const main = () => {
 	const mediumIterations = 100;
 	const shortIterations = 99;
-	const nodeCount = 10000;
+	const nodeCount = 5000;
 	const intMax = Math.pow(2, 31) - 1;
 
 	let longList = new LinkedList();
