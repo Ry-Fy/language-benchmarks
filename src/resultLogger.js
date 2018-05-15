@@ -1,5 +1,4 @@
 const os = require('os');
-const R = require('ramda');
 const BenchmarkResult = require('./benchmarkResult');
 
 class ResultLogger {
@@ -23,26 +22,61 @@ class ResultLogger {
 		this._printInfoLine(` Samples:      ${samples} / Benchmark`);
 		this._printInfoLine(` Group Method: Arithmetic Mean`);
 		this._printInfoLine('');
-		const benchmarkGroups = R.groupWith((x, y) => x.benchmark === y.benchmark, results);
-		const avgBenchmarks = R.map((group) => {
-			const languageGroups = R.groupWith((x, y) => x.language === y.language, group);
-			const avgGroups = R.map((x) => {
-				const avgMemMax = x.map(b => b.memoryMax).reduce((p, c) => p + c) / x.length;
-				const avgMemAvg = x.map(b => b.memoryAvg).reduce((p, c) => p + c) / x.length;
-				const avgTime = x.map(b => b.elapsedSeconds).reduce((p, c) => p + c) / x.length;
-				return new BenchmarkResult(
-					avgMemMax,
-					avgMemAvg,
-					avgTime,
-					x[0].language,
-					x[0].benchmark
-				)
-			}, languageGroups)
-			return avgGroups;
-		}, benchmarkGroups);
+		const benchmarkGroups = this._groupBenchmarksByBenchmark(results);
+		
+		const languageAverages = [];
+		for (let benchmark in benchmarkGroups) {
+			const benchmarkArray = benchmarkGroups[benchmark];
+			const languageArray = this._getAveragedLanguageArray(benchmarkArray);
+			languageAverages.push(languageArray);
+		}
 
-		avgBenchmarks.forEach(resultSet => this._printResultSet(resultSet));
+		languageAverages.forEach(resultSet => this._printResultSet(resultSet));
 		this._printHeader('');
+	}
+
+	_groupBenchmarksByBenchmark(results) {
+		const benchmarkGroups = {};
+		for (let result of results) {
+			if (benchmarkGroups[result.benchmark] == null) {
+				benchmarkGroups[result.benchmark] = [result];
+			} else {
+				benchmarkGroups[result.benchmark].push(result);
+			}
+		}
+		return benchmarkGroups;
+	}
+
+	_groupBenchmarksByLanguage(results) {
+		const languageGroups = {};
+		for (let result of results) {
+			if (languageGroups[result.language] == null) {
+				languageGroups[result.language] = [result];
+			} else {
+				languageGroups[result.language].push(result);
+			}
+		}
+		return languageGroups;
+	}
+
+	_getAveragedLanguageArray(benchmarkGroup) {
+		const languageGroups = this._groupBenchmarksByLanguage(benchmarkGroup);
+		const languageResults = [];
+		for (let language in languageGroups) {
+			const langArray = languageGroups[language];
+			const avgMemMax = langArray.map(b => b.memoryMax).reduce((p, c) => p + c) / langArray.length;
+			const avgMemAvg = langArray.map(b => b.memoryAvg).reduce((p, c) => p + c) / langArray.length;
+			const avgTime = langArray.map(b => b.elapsedSeconds).reduce((p, c) => p + c) / langArray.length;
+			languageResults.push(new BenchmarkResult(
+				avgMemMax,
+				avgMemAvg,
+				avgTime,
+				langArray[0].language,
+				langArray[0].benchmark
+			));
+		}
+		const sortedResults = languageResults.sort((a, b) => a.elapsedSeconds < b.elapsedSeconds ? -1 : 1);
+		return sortedResults;
 	}
 
 	_printResultSet(resultSet) {

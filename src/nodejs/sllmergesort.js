@@ -78,6 +78,16 @@ class LinkedList {
 		}
 		return result;
 	}
+
+	length() {
+		let count = 0;
+		let current = this.head;
+		while (current != null) {
+			count += 1;
+			current = current.next;
+		}
+		return count
+	}
 }
 
 const getRandomInt = (max) => {
@@ -86,7 +96,7 @@ const getRandomInt = (max) => {
 
 const main = () => {
 	const mediumIterations = 100;
-	const shortIterations = 100;
+	const shortIterations = 99;
 	const nodeCount = 10000;
 	const intMax = Math.pow(2, 31) - 1;
 

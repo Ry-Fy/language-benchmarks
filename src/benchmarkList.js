@@ -129,6 +129,14 @@ const benchmarkConfigs = [
 		runCmd: './src/crystal/sllmergesort.out',
 		runArgs: null,
 	},
+	{
+		language: 'Java',
+		benchmark: 'SLL Merge-Sort',
+		compileCmd: 'javac',
+		compileArgs: ['./src/java/sllmergesort/sllmergesort.java'],
+		runCmd: 'java',
+		runArgs: ['-cp', './src/java/sllmergesort', 'SllMergeSort'],
+	},
 ]
 
 const benchmarkList = benchmarkConfigs.map(config => new BenchmarkRunner(config));

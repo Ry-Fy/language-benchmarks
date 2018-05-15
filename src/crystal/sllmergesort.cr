@@ -16,7 +16,7 @@ class LinkedList
 		@head = merge_sort(@head)
 	end
 
-	def merge_sort(start_node : Node?) : Node?
+	private def merge_sort(start_node : Node?) : Node?
 		return start_node if start_node.nil? || start_node.next.nil?
 
 		middle = get_middle(start_node)
@@ -32,7 +32,7 @@ class LinkedList
 		return merged
 	end
 
-	def merge(left_node : Node?, right_node : Node?) : Node?
+	private def merge(left_node : Node?, right_node : Node?) : Node?
 		return right_node if left_node.nil?
 		return left_node if right_node.nil?
 
@@ -48,7 +48,7 @@ class LinkedList
 		return result
 	end
 
-	def get_middle(start_node : Node?) : Node?
+	private def get_middle(start_node : Node?) : Node?
 		return start_node if start_node.nil?
 
 		fast_node = start_node.next
@@ -78,8 +78,8 @@ class LinkedList
 end
 
 def main()
-	short_iterations = 100
 	medium_iterations = 100
+	short_iterations = 99
 	node_count = 10_000
 	int_max = (2 ** 31) -1
 
