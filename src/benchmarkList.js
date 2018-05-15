@@ -113,6 +113,22 @@ const benchmarkConfigs = [
 		runCmd: 'python3',
 		runArgs: ['./src/python/primesum.py'],
 	},
+	{
+		language: 'NodeJS',
+		benchmark: 'SLL Merge-Sort',
+		compileCmd: null,
+		compileArgs: null,
+		runCmd: 'node',
+		runArgs: ['./src/nodejs/sllmergesort.js'],
+	},
+	{
+		language: 'Crystal',
+		benchmark: 'SLL Merge-Sort',
+		compileCmd: 'crystal',
+		compileArgs: ['build', '--release', './src/crystal/sllmergesort.cr', '-o', './src/crystal/sllmergesort.out'],
+		runCmd: './src/crystal/sllmergesort.out',
+		runArgs: null,
+	},
 ]
 
 const benchmarkList = benchmarkConfigs.map(config => new BenchmarkRunner(config));

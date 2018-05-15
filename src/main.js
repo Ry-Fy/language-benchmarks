@@ -21,7 +21,7 @@ class LanguageBenchmarks {
 		console.log(`Completed the benchmark run. There was a total of ${results.length} successful benchmarks.`)
 
 		const logger = new ResultLogger();
-		logger.logResults(results);
+		logger.logResults(results, this.samples);
 	}
 
 	async compileBenchmarks(benchmarks) {
@@ -84,11 +84,11 @@ async function main() {
 	
 	config.langsToSkip.forEach(language => console.log(`Skipping ${language} for this run.`))
 
-	//const runner = new LanguageBenchmarks(benchmarkList.filter(b => !config.langsToSkip.includes(b.language)), config.samples);
-	//await runner.start();
-	const logger = new ResultLogger();
-	logger.logResults(testResults, config.samples)
-	await idk();
+	const runner = new LanguageBenchmarks(benchmarkList.filter(b => !config.langsToSkip.includes(b.language)), config.samples);
+	await runner.start();
+	//const logger = new ResultLogger();
+	//logger.logResults(testResults, config.samples)
+	//await idk();
 	process.exit();
 }
 
