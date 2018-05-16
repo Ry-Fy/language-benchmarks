@@ -6,12 +6,6 @@ struct Node {
 	next: Option<Box<Node>>,
 }
 
-impl Node {
-	fn new(val: i32, next: Option<Box<Node>>) -> Self {
-		return Node { val: val, next: next };
-	}
-}
-
 struct LinkedList {
 	head: Option<Box<Node>>,
 }
@@ -22,56 +16,56 @@ impl LinkedList {
 	}
 
 	fn push(&mut self, new_val: i32) {
-		let new_node = Box::new(Node::new(new_val, self.head.take()));
-		self.head = Some(new_node);
+		let new_node = Node { val: new_val, next: self.head.take() };
+		let boxed_node = Box::new(new_node);
+		self.head = Some(boxed_node);
 	}
 
-	/*fn sort() {
+	/*
+	GO IMPLEMENTATION FOR  THE FUNCTION I'M TRYING TO WRITE
+	func (list *LinkedList) getMiddle(startNode *Node) *Node {
+		if startNode == nil {
+			return startNode
+		}
 
+		fastNode := startNode.next
+		slowNode := startNode
+
+		for fastNode != nil {
+			fastNode = fastNode.next
+			if fastNode != nil {
+				slowNode = slowNode.next
+				fastNode = fastNode.next
+			}
+		}
+
+		return slowNode
 	}
-
-	fn merge_sort(start_node: Option<Box<Node>>) -> Option<Box<Node>> {
-
-	}
-
-	fn merge(left_node: Option<Box<Node>>, right_node: Option<Box<Node>>) -> Option<Box<Node>> {
-		
-	}
-
-	fn pop_node(&mut self) -> Option<Box<Node<T>>> {
-    self.head.take().map(|mut node| {
-        self.head = node.next.take();
-        node
-    })
-}
 	*/
-
-	fn get_middle(&mut self, start_node: Option<Box<Node>>) -> Option<Box<Node>> {
-		if start_node.is_none() { return None; }
-		
-		let fast_node = start_node.map(|start| start.next);
-		let slow_node = start_node;
-
-		//while fast_node.is_some() {
-		//	fast_node = match fast_node.unwrap().next { Some(next) => Some(next), None => None };
-		//}
+	fn get_middle(start_node: Option<Box<Node>>) -> Option<Box<Node>> {
+		fn get_middle(start_node: Option<&Node>) -> Option<&Node> {
+		let mut slow: &Node = start_node?;
+		let mut fast: Option<&Node> = slow.next.as_ref().map(|x| &**x);
+		while let Some(f) = fast {
+			fast = f.next.as_ref().map(|x| &**x);
+			if let Some(f) = fast {
+				slow = slow.next.as_ref().map(|x| &**x).unwrap();
+				fast = f.next.as_ref().map(|x| &**x);
+			}
+		}
+		Some(slow)
+	}
 
 		return None;
 	}
 }
 
 fn main() {
-	let medium_iterations: i32 = 100;
-	let short_iterations: i32 = 99;
-	let node_count: i32 = 5000;
-	let int_max: i32 = 2i32.pow(31) - 1;
-
-	let long_list = LinkedList::new();
-
-	for _ in 0..medium_iterations {
-		let medium_list = LinkedList::new();
-		for _ in 0..node_count {
-
-		}
-	}
+	let mut long_list = LinkedList::new();
+	long_list.push(10);
+	long_list.push(100);
+	long_list.push(50);
+	long_list.push(25);
+	long_list.push(5);
+	long_list.push(75);
 }
