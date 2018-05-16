@@ -76,10 +76,21 @@ async function idk() {
 async function main() {
 	const config = {
 		samples: 1,
-		// It takes WAY too long to run Python benchmarks...You kidding me!? 800+ seconds for primes!?
-		//langsToSkip: ['Python'],
-		langsToRun: ['NodeJS', 'Crystal', 'Java', 'Go', 'C#', 'C'],
-		benchmarksToRun: ['SLL Merge-Sort']
+		langsToRun: [
+			'C',
+			'C#',
+			'Crystal',
+			'Go',
+			'Java',
+			'NodeJS',
+			// 'Python',
+			'Rust',
+		],
+		benchmarksToRun: [
+			//'N-Body',
+			'Prime Sum',
+			//'SLL Merge-Sort',
+		]
 	}
 
 	const benchmarksToRun = benchmarkList.filter(b => config.langsToRun.includes(b.language) && config.benchmarksToRun.includes(b.benchmark));

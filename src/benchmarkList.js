@@ -106,6 +106,14 @@ const benchmarkConfigs = [
 		runArgs: ['-cp', './src/java/primesum', 'PrimeSum'],
 	},
 	{
+		language: 'Rust',
+		benchmark: 'Prime Sum',
+		compileCmd: 'rustc',
+		compileArgs: ['./src/rust/primesum.rs', '-o', './src/rust/primesum.out', '-C', 'opt-level=3'],
+		runCmd: './src/rust/primesum.out',
+		runArgs: null,
+	},
+	{
 		language: 'Python',
 		benchmark: 'Prime Sum',
 		compileCmd: null,

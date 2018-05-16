@@ -68,16 +68,6 @@ void list_print(LinkedList* list) {
 	}
 }
 
-int list_length(LinkedList* list) {
-	Node* current = list->head;
-	int count = 0;
-	while (current) {
-		count++;
-		current = current->next;
-	}
-	return count;
-}
-
 Node* merge_sort(Node* startNode) {
 	if (!startNode || !startNode->next) {
 		return startNode;
@@ -133,7 +123,7 @@ Node* get_middle(Node* startNode) {
 }
 
 int getRandomInt() {
-	int max = INT32_MAX;
+	int max = 2147483647;
 	return rand() % max;
 }
 
