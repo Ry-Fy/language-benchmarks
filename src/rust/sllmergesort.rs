@@ -42,8 +42,8 @@ impl LinkedList {
 		return slowNode
 	}
 	*/
-	fn get_middle(start_node: Option<Box<Node>>) -> Option<Box<Node>> {
-		fn get_middle(start_node: Option<&Node>) -> Option<&Node> {
+
+	fn get_middle(start_node: Option<&Node>) -> Option<&Node> {
 		let mut slow: &Node = start_node?;
 		let mut fast: Option<&Node> = slow.next.as_ref().map(|x| &**x);
 		while let Some(f) = fast {
@@ -54,9 +54,6 @@ impl LinkedList {
 			}
 		}
 		Some(slow)
-	}
-
-		return None;
 	}
 }
 
