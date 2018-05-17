@@ -12,7 +12,7 @@ struct LinkedList {
 
 impl LinkedList {
 	fn new() -> Self {
-		return LinkedList { head: None }
+		LinkedList { head: None }
 	}
 
 	fn push(&mut self, new_val: i32) {
@@ -21,39 +21,71 @@ impl LinkedList {
 		self.head = Some(boxed_node);
 	}
 
+	fn merge_sort(start_node: Option<&Node>) -> Option<&Node> {
+		if start_node.is_none() || start_node.unwrap().next.is_none() {
+			return start_node;
+		}
+
+		return None
+	}
+
 	/*
-	GO IMPLEMENTATION FOR  THE FUNCTION I'M TRYING TO WRITE
-	func (list *LinkedList) getMiddle(startNode *Node) *Node {
-		if startNode == nil {
-			return startNode
+	func (list *LinkedList) merge(leftNode *Node, rightNode *Node) *Node {
+		if leftNode == nil {
+			return rightNode
+		} else if rightNode == nil {
+			return leftNode
 		}
 
-		fastNode := startNode.next
-		slowNode := startNode
-
-		for fastNode != nil {
-			fastNode = fastNode.next
-			if fastNode != nil {
-				slowNode = slowNode.next
-				fastNode = fastNode.next
-			}
+		var result *Node
+		if leftNode.val <= rightNode.val {
+			result = leftNode
+			result.next = list.merge(leftNode.next, rightNode)
+		} else {
+			result = rightNode
+			result.next = list.merge(leftNode, rightNode.next)
 		}
 
-		return slowNode
+		return result
 	}
 	*/
+	fn merge<'a>(&self, left_opt: Option<&'a Node>, right_opt: Option<&'a Node>) -> Option<&'a Node> {
+		if left_opt.is_none() {
+			return right_opt;
+		} else if right_opt.is_none() {
+			return left_opt;
+		}
+
+		let mut left_node: &Node = left_opt.unwrap();
+		let mut right_node: &Node = right_opt.unwrap();
+		let mut result_node: &Node;
+
+		if left_node.val <= right_node.val {
+			result_node = left_node;
+			let left_next: Option<&Node> = left_node.next.as_ref().map(|x| &**x);
+			//result_node.next = self.merge(left_next, Some(right_node));
+		} else {
+			result_node = right_node;
+			let right_next: Option<&Node> = right_node.next.as_ref().map(|x| &**x);
+			//result_node.next = self.merge(Some(left_node), right_next);
+		}
+
+		return Some(result_node);
+	} 
 
 	fn get_middle(start_node: Option<&Node>) -> Option<&Node> {
-		let mut slow: &Node = start_node?;
-		let mut fast: Option<&Node> = slow.next.as_ref().map(|x| &**x);
-		while let Some(f) = fast {
-			fast = f.next.as_ref().map(|x| &**x);
-			if let Some(f) = fast {
-				slow = slow.next.as_ref().map(|x| &**x).unwrap();
-				fast = f.next.as_ref().map(|x| &**x);
+		let mut slow_node: &Node = start_node?;
+		let mut fast_node: Option<&Node> = slow_node.next.as_ref().map(|x| &**x);
+
+		while let Some(f) = fast_node {
+			fast_node = f.next.as_ref().map(|x| &**x);
+			if let Some(f) = fast_node {
+				slow_node = slow_node.next.as_ref().map(|x| &**x).unwrap();
+				fast_node = f.next.as_ref().map(|x| &**x);
 			}
 		}
-		Some(slow)
+
+		return Some(slow_node)
 	}
 }
 

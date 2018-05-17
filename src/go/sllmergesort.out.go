@@ -60,7 +60,7 @@ func (list *LinkedList) merge(leftNode *Node, rightNode *Node) *Node {
 		return leftNode
 	}
 
-	var result *Node = nil
+	var result *Node
 	if leftNode.val <= rightNode.val {
 		result = leftNode
 		result.next = list.merge(leftNode.next, rightNode)

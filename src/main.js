@@ -87,7 +87,7 @@ async function main() {
 			'Rust',
 		],
 		benchmarksToRun: [
-			//'N-Body',
+			'N-Body',
 			'Prime Sum',
 			//'SLL Merge-Sort',
 		]

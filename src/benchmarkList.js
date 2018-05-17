@@ -50,6 +50,14 @@ const benchmarkConfigs = [
 		runArgs: ['-cp', './src/java/nbody', 'NBody'],
 	},
 	{
+		language: 'Rust',
+		benchmark: 'N-Body',
+		compileCmd: 'rustc',
+		compileArgs: ['./src/rust/nbody.rs', '-o', './src/rust/nbody.out', '-C', 'opt-level=3'],
+		runCmd: './src/rust/nbody.out',
+		runArgs: null,
+	},
+	{
 		language: 'Python',
 		benchmark: 'N-Body',
 		compileCmd: null,
